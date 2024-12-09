@@ -13,6 +13,11 @@ class PokemiltonMaster {
     
   }
 
+//Fonction pratique qui push le pokemon en paramètre dans le sac à dos
+  addPokemilton(pokemilton) {
+    this.pokemiltonCollection.push(pokemilton)
+  }
+
 
 
   healPokemilton(pokemilton) {

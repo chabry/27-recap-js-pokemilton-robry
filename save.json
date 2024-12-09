@@ -1,0 +1,17 @@
+{
+  "name": "Lola",
+  "pokemiltonCollection": [
+    {
+      "name": "tinRob",
+      "level": 1,
+      "experienceMeter": 0,
+      "attackRange": 8,
+      "defenseRange": 3,
+      "healthPool": 11,
+      "catchPhrase": "I choose you!"
+    }
+  ],
+  "healingItems": 5,
+  "reviveItems": 3,
+  "POKEBALLS": 10
+}

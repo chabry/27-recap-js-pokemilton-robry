@@ -1,0 +1,12 @@
+{
+    "saved_on": "",
+    "PokemiltonMaster": {
+        "name": "",
+        "pokemilton™Collection": [],
+        "healingItems": 0,
+        "reviveItems": 0,
+        "POKEBALLS": 0
+    },
+    "day": 1,
+    "logs": []
+}
