@@ -4,7 +4,7 @@ const Pokemilton = require('./Pokemilton')
 
 class PokemiltonWorld {
   constructor() {
-   
+    
   }
 
   oneDayPasses(){
@@ -12,7 +12,7 @@ class PokemiltonWorld {
   }
   
   randomizeEvent() {
-     
+    
   }
 
   addLog(newLog){
