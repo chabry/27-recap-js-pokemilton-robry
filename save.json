@@ -1,17 +1,26 @@
 {
-  "name": "Lola",
-  "pokemiltonCollection": [
-    {
-      "name": "tinRob",
-      "level": 1,
-      "experienceMeter": 0,
-      "attackRange": 8,
-      "defenseRange": 3,
-      "healthPool": 11,
-      "catchPhrase": "I choose you!"
-    }
-  ],
-  "healingItems": 5,
-  "reviveItems": 3,
-  "POKEBALLS": 10
+  "saved_on": "10/12/2024 16:36:22",
+  "PokemiltonMaster": {
+    "name": "rob",
+    "pokemiltonCollection": [
+      {
+        "name": "Bastien",
+        "level": 1,
+        "experienceMeter": 0,
+        "attackRange": 6,
+        "defenseRange": 1,
+        "healthPool": 8,
+        "maxHealth": 16,
+        "catchPhrase": "Pokemilton, go!"
+      }
+    ],
+    "healingItems": 5,
+    "reviveItems": 0,
+    "POKEBALLS": 10
+  },
+  "day": 4,
+  "logs": [
+    "balbla",
+    "balbla"
+  ]
 }

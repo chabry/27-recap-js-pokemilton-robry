@@ -4,11 +4,12 @@ const Pokemilton = require('./Pokemilton')
 
 class PokemiltonWorld {
   constructor() {
-    
+    this.day = 1
+    this.logs = []
   }
 
   oneDayPasses(){
-    
+    this.day += 1
   }
   
   randomizeEvent() {
@@ -16,7 +17,7 @@ class PokemiltonWorld {
   }
 
   addLog(newLog){
-    
+    this.logs.push(newLog)
   }
 }
 

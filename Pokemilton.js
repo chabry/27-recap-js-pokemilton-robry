@@ -22,6 +22,7 @@ class Pokemilton {
     this.attackRange = this.getRandomNumber(1, 8);
     this.defenseRange = this.getRandomNumber(1, 3);
     this.healthPool = this.getRandomNumber(10, 30);
+    this.maxHealth = this.healthPool
     this.catchPhrase = this.generateCatchPhrase();
   }
 

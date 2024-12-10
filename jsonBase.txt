@@ -10,3 +10,10 @@
     "day": 1,
     "logs": []
 }
+
+Your current Pokemilton collection:
+1. Alett - Level 1 - Stats: Attack Range 6, Defense Range 1, Health Pool 21
+
+Choose a Pokemilton to rename (enter the number): 1
+Enter the new name: Leafy
+Successfully renamed Alett to Leafy.
