@@ -14,6 +14,8 @@ const rl = readline.createInterface({
 
 let player = {}
 let world = null
+let equal = '============================================================'
+let numberCharacters = ['1️⃣','2️⃣','3️⃣','4️⃣','5️⃣']
 
   function saveGameState() {
     //On créé un objet gameData et on attribue chaque clé à la valeur de l'instance player
@@ -52,8 +54,11 @@ function loadJSON() {
 
 function askForName() {
   //On demande au joueur son nom
-  rl.question("Welcome to the Pokemilton World! What's your name, Pokemilton Master? ", (playerName) => {
-    console.log(`Hello, ${playerName}! Let your Pokemilton adventure begin! \n`)
+  console.clear()
+  console.log(`${equal}\n                🛤️  A NEW JOURNEY BEGINS! 🛤️\n${equal}\n`)
+  rl.question("🎤 What is your name, Pokemilton Master?\n💡 Enter your name: ", (playerName) => {
+    console.clear()
+    console.log(`\n${equal}\n                 Welcome, ${playerName}, to the world of\n                      🐾 POKEMILTON 🐾\n${equal}`)
     //On créé une nouvelle instance de la classe PokemiltonMaster et on attribue au constructeur le playerName
     player = new PokemiltonMaster(playerName)
     //On créé une nouvelle instance pokemiltonworld
@@ -67,9 +72,12 @@ function proposeFirstPokemilton(){
   const pokemilton = []
   let pokemiltonNumber = 1
 
+  console.clear()
+  console.log(`${equal}\n             🌟 Choose your first Pokemilton! 🌟\n${equal}\n`)
+
   function chooseFirstPokemon(){
     //Ajouter dans la collection de joueur vide de base le starter avec push
-    rl.question('\nChoose your first Pokemilton (1-3): ', (chosenPokemilton) => {
+    rl.question('\n💡 Your choice: ', (chosenPokemilton) => {
 
       //On converti la réponse(string) de l'utilisateur en nombre(int)
       const chosenIndex = parseInt(chosenPokemilton) - 1
@@ -80,9 +88,13 @@ function proposeFirstPokemilton(){
         const selectedPokemilton = pokemilton[chosenIndex]
         //On l'ajoute dans l'instance PokemiltonMaster précédemment créé dans askforname grâce à la fonction addPokemilton créé
         player.addPokemilton(selectedPokemilton)
+
+        //Console.log
+        console.log(`\n${equal}\n                 Congratulations, ${playerName}!\n                You chose 🐾 PieAnd as your partner!\n${equal}\n`)
+
         //On sauvegarde les données dans le save.json
         saveGameState()
-
++
         //Afficher les actions
         showAction()
       }
@@ -98,12 +110,11 @@ function proposeFirstPokemilton(){
   //Afficher 3 starter généré aléatoirement
   for(let i = 0; i < 3; i++){
     pokemilton[i] = new Pokemilton
-    console.log(`${pokemiltonNumber}. ${pokemilton[i].name} - Level ${pokemilton[i].level} - Stats: Attack Range ${pokemilton[i].attackRange}, Defense Range ${pokemilton[i].defenseRange}, Health Pool ${pokemilton[i].healthPool}`)
+    console.log(`${numberCharacters[i]}  🐾 ${pokemilton[i].name} - Level: ${pokemilton[i].level} | HP: ${pokemilton[i].healthPool} | ATK: ${pokemilton[i].attackRange} | DEF: ${pokemilton[i].defenseRange}`)
     pokemiltonNumber++
   }
-  console.log(player)
+  
   chooseFirstPokemon()
-
 }
 
 function choosePokemiltonTo(action, message){
@@ -138,7 +149,7 @@ function choosePokemiltonTo(action, message){
 }
 
 function menuList(){
-  return '\nWhat do you want to do today?\n1. Heal Pokemilton\n2. Revive Pokemilton\n3. Release Pokemilton\n4. Rename Pokemilton\n5. Do nothing\n'
+  return `\n🎮 What do you want to do today?\n${numberCharacters[0]}  Heal Pokemilton\n${numberCharacters[1]}  Revive Pokemilton\n${numberCharacters[2]}  Release Pokemilton\n${numberCharacters[3]}  Rename Pokemilton\n${numberCharacters[4]}  Do nothing\n`
 }
 
 
@@ -223,7 +234,8 @@ handleRound()
 }
 
 function showAction(){
-  rl.question(menuList() + '\nChoose an option (1-5) : ', (action) => {
+  console.log(`${equal}\n                🗓️ Day ${world.day} in Pokemilton Town 🗓️\n${equal}\n`)
+  rl.question(menuList() + '\n💡 Your choice: ', (action) => {
     //Faire un switch pour appeller les fonctions du menu du jeu en fonction du choix de l'utilisateur
     action = parseInt(action)
     switch(action){
@@ -295,14 +307,15 @@ function showAction(){
 function startGame(){
   //Vérifier si une sauvegarde existe
   //Si oui on propose de la charger ou de recommencer une nouvelle
+  console.clear()
   jsonData = loadJSON()
-  console.log(jsonData)
   if(jsonData.saved_on != ''){
-    console.log('Previous game found!\n')
-    console.log('1. Load previous game')
-    console.log('2. Start a new game')
+    console.log(`${equal}\n                🌟 WELCOME TO POKEMILTON 🌟\n${equal}\n`)
+    console.log('📂 Previous save detected! What would you like to do?')
+    console.log('1️⃣  Load previous game')
+    console.log('2️⃣  Start a new adventure')
 
-    rl.question('Choose an option (1-2): ', (newBeginning) => {
+    rl.question('\n💡 Your choice: ', (newBeginning) => {
       const newBeginningIndex = parseInt(newBeginning)
 
       if(newBeginningIndex === 1){

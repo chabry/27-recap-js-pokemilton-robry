@@ -40,19 +40,26 @@ class PokemiltonArena {
     const healthPercent = this.pokemilton_2.healthPool / this.pokemilton_2.maxHealth
     const successChance = Math.random()
 
-    if(player.POKEBALLS)
+    if ( player.POKEBALLS > 0) {
+      player.POKEBALLS-- // réduit le nombre de pokéball de 1
 
-    if(successChance > healthPercent) {
-      this.looser = this.pokemilton_2.name
-      this.winner = this.pokemilton_1.name
-      console.log(`You caught ${this.pokemilton_2.name}!`)
-      player.addPokemilton(this.pokemilton_2)
-      this.endBattle()
-
-    }else{
-      console.log(`Failed to catch ${this.pokemilton_2.name}!`)
-      this.wildPokemiltonAction(this.pokemilton_1)
+      if(successChance > healthPercent) {
+        this.looser = this.pokemilton_2.name
+        this.winner = this.pokemilton_1.name
+        console.log(`You caught ${this.pokemilton_2.name}!`)
+        player.addPokemilton(this.pokemilton_2)
+        this.endBattle()
+  
+      }else{
+        console.log(`You have ${player.POKEBALLS} pokeballs left`)
+        console.log(`Failed to catch ${this.pokemilton_2.name}!`)
+      }
     }
+    if(player.POKEBALLS === 0){
+      console.clear()
+      console.log('Impossible to try to catch. No pokeballs lefts')
+    }
+    this.wildPokemiltonAction(this.pokemilton_1)
   }
 
   calculateDamage(attackRange, defenseRange, level) {
