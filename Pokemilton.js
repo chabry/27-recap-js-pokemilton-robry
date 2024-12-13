@@ -33,7 +33,7 @@ class Pokemilton {
   }
 
   getRandomNumber(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+    return Math.round(Math.random() * (max - min + 1)) + min;
   }
 
   generateCatchPhrase() {
@@ -42,13 +42,13 @@ class Pokemilton {
   }
 
   attack(defender) {
-    const damage = this.getRandomNumber(this.attackRange * this.level, this.attackRange) - defender.defenseRange;
+    const damage = this.getRandomNumber(this.attackRange, this.attackRange * this.level) - defender.defenseRange;
     defender.healthPool -= damage;
     console.log(`${this.name} attacked ${defender.name} and dealt ${damage} damage!`);
   }
 
   gainExperience(opponentLevel) {
-    const experienceGain = this.getRandomNumber(1, 5) * opponentLevel;
+    const experienceGain = this.getRandomNumber(5, 10) * opponentLevel;
     this.experienceMeter += experienceGain;
     console.log(`${this.name} gained ${experienceGain} experience points!`);
     if (this.experienceMeter >= this.level * 100) {
@@ -58,15 +58,15 @@ class Pokemilton {
 
   evolve() {
     this.level += 1;
-    const attackIncrease = this.getRandomNumber(1, 5);
-    const defenseIncrease = this.getRandomNumber(1, 5);
-    const healthIncrease = this.getRandomNumber(1, 5);
+    const attackIncrease = this.getRandomNumber(5, 10);
+    const defenseIncrease = this.getRandomNumber(5, 10);
+    const healthIncrease = this.getRandomNumber(5, 10);
 
     this.attackRange += attackIncrease;
     this.defenseRange += defenseIncrease;
-    this.healthPool += healthIncrease;
+    this.maxHealth += healthIncrease;
 
-    console.log(`${this.name} evolved into a higher level! New stats: Level ${this.level}, Attack Range ${this.attackRange}, Defense Range ${this.defenseRange}, Health Pool ${this.healthPool}`);
+    console.log(`${this.name} evolved into a higher level! New stats: Level ${this.level}, Attack Range ${this.attackRange}, Defense Range ${this.defenseRange}, Health Pool ${this.maxHealth}`);
   }
 
   sayCatchPhrase() {

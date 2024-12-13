@@ -12,10 +12,13 @@ class PokemiltonMaster {
   renamePokemilton(pokemilton, newName) {
     if (!pokemilton || !newName) {
       console.log("Invalid Pokemilton or name.")
+      return false
+    }else{
+      const oldName = pokemilton.name
+      pokemilton.name = newName
+      console.log(`Successfully renamed ${oldName} to ${newName}.\n`)
+      return true
     }
-    const oldName = pokemilton.name
-    pokemilton.name = newName
-    console.log(`Successfully renamed ${oldName} to ${newName}.\n`)
   }
 
 //Fonction pratique qui push le pokemon en paramètre dans le sac à dos
@@ -27,18 +30,19 @@ class PokemiltonMaster {
 
   healPokemilton(pokemilton) {
     if (!pokemilton) {
-
       console.log("Invalid Pokemilton or name.")
-
        }
-
-       else if (this.healingItems >= 1 && pokemilton.healthPool < pokemilton.maxHealth) {
+       else if (this.healingItems >= 1 && pokemilton.healthPool < pokemilton.maxHealth && pokemilton.healthPool > 0) {
         pokemilton.healthPool = pokemilton.maxHealth
         console.log('Pokemon healed')
         this.healingItems--
         console.log(`${this.healingItems} Healing object remained\n`)
+        return true
        }else if (pokemilton.healthPool === pokemilton.maxHealth){
         console.log('Pokemon is already full life')
+        return false
+       }else if (pokemilton.healthPool === 0){
+        console.log('You need to revive the pokemon')
        }
     
   }
@@ -55,8 +59,10 @@ class PokemiltonMaster {
         console.log('Pokemon revived')
         this.reviveItems--
         console.log(`${this.reviveItems} Revive object remained\n`)
+        return true
        }else if (pokemilton.healthPool > 0){
         console.log('Pokemon is already revived')
+        return false
        }
     
   }
@@ -66,8 +72,10 @@ class PokemiltonMaster {
     if (index !== -1) {
       this.pokemiltonCollection.splice(index, 1); // Supprime le Pokemilton à cet index
       console.log(`${pokemilton.name} has been released from your collection.`);
+      return true
     } else {
       console.log("Pokemilton not found in your collection.");
+      return false
     }
   }
   
