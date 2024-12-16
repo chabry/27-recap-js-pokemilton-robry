@@ -164,7 +164,7 @@ function menuList(){
 //On fait une fonction directement dans game.js qui gère le combat et qui appelle au bon moment les méthode d'Arena
 function battleFlow(playerPokemilton, wildPokemilton){
   //On créé une instance d'Arena
-  const arena = new PokemiltonArena(playerPokemilton, wildPokemilton, world);
+  const arena = new PokemiltonArena(playerPokemilton, wildPokemilton, world, player);
 
   //Mise en page
   console.clear()

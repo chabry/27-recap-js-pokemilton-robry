@@ -10,6 +10,7 @@ class PokemiltonArena {
     this.pokemilton_1 = playerPokemilton
     this.pokemilton_2 = wildPokemilton
     this.world = world
+    this.player = player
     this.winner = ''
     this.looser = ''
     this.round = 0
@@ -33,23 +34,23 @@ class PokemiltonArena {
     this.checkBattleStatus()
   }
   
-  tryToCatch(player) {
+  tryToCatch() {
     // Tente de capturer le Pokemilton sauvage.
     const healthPercent = this.pokemilton_2.healthPool / this.pokemilton_2.maxHealth; // Pourcentage de santé restante
     const successChance = Math.random(); // Génère un nombre aléatoire entre 0 et 1
   
-    if (player.POKEBALLS > 0) { // Vérifie que le joueur a des Pokéballs
-      player.POKEBALLS--; // Consomme une Pokéball
+    if (this.player.POKEBALLS > 0) { // Vérifie que le joueur a des Pokéballs
+      this.player.POKEBALLS--; // Consomme une Pokéball
       console.log(`🎯 You throw a Pokéball at ${this.pokemilton_2.name}...`)
-      console.log(`🎾 ${player.POKEBALLS} Pokéball${player.POKEBALLS === 1 ? '' : 's'} remaining.`) // Affiche le nombre de Pokéballs restantes
+      console.log(`🎾 ${this.player.POKEBALLS} Pokéball${this.player.POKEBALLS === 1 ? '' : 's'} remaining.`) // Affiche le nombre de Pokéballs restantes
   
       if (successChance > healthPercent) {
         // Capture réussie
         this.winner = this.pokemilton_1.name // Le joueur est le gagnant
         this.looser = this.pokemilton_2.name // Le Pokemilton sauvage est capturé
         console.log(`🎉 You caught ${this.pokemilton_2.name}! 🐾`); // Message de confirmation
-        player.addPokemilton(this.pokemilton_2) // Ajoute le Pokemilton capturé à la collection du joueur
-        this.world.addLog(`Day ${this.world.day}: ${player.name} caught ${this.pokemilton_2.name} in a battle.`);
+        this.player.addPokemilton(this.pokemilton_2) // Ajoute le Pokemilton capturé à la collection du joueur
+        this.world.addLog(`Day ${this.world.day}: ${this.player.name} caught ${this.pokemilton_2.name} in a battle.`);
         this.endBattle(); // Termine le combat
       } else {
         // Capture échouée
@@ -89,14 +90,14 @@ class PokemiltonArena {
         this.looser = this.pokemilton_1.name
         this.winner = this.pokemilton_2.name
         console.log(`${this.pokemilton_1.name} is dead. You lost loser.`);
-        this.world.addLog(`Day ${this.world.day}: ${player.name}'s ${this.pokemilton_1.name} lost to ${this.pokemilton_2.name}.`);
+        this.world.addLog(`Day ${this.world.day}: ${this.player.name}'s ${this.pokemilton_1.name} lost to ${this.pokemilton_2.name}.`);
         // Le joueur a perdu, on passe au jour suivant ?
         this.endBattle()
       }else if(this.pokemilton_2.healthPool <= 0){
         this.looser = this.pokemilton_2.name
         this.winner = this.pokemilton_1.name
         console.log(`${this.pokemilton_2.name} is dead. You won winner.`);
-        this.world.addLog(`Day ${this.world.day}: ${player.name}'s ${this.pokemilton_1.name} defeated ${this.pokemilton_2.name}.`);
+        this.world.addLog(`Day ${this.world.day}: ${this.player.name}'s ${this.pokemilton_1.name} defeated ${this.pokemilton_2.name}.`);
         // Le joueur a gagné, on donne de l'XP
         // On passe au jour suivant
         this.endBattle()

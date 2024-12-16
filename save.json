@@ -1,36 +1,38 @@
 {
-  "saved_on": "16/12/2024 16:20:19",
+  "saved_on": "16/12/2024 16:32:40",
   "PokemiltonMaster": {
-    "name": "Bryan",
+    "name": "bryan",
     "pokemiltonCollection": [
       {
-        "name": "Martine",
+        "name": "Andllaume",
         "level": 1,
-        "experienceMeter": 9,
-        "attackRange": 2,
+        "experienceMeter": 10,
+        "attackRange": 4,
         "defenseRange": 1,
-        "healthPool": 7,
-        "maxHealth": 31,
+        "healthPool": 11,
+        "maxHealth": 15,
         "catchPhrase": "Let the battle begin!"
       },
       {
-        "name": "asPie",
+        "name": "loi$",
         "level": 1,
         "experienceMeter": 0,
-        "attackRange": 5,
-        "defenseRange": 1,
-        "healthPool": 1,
-        "maxHealth": 25,
-        "catchPhrase": "I choose you!"
+        "attackRange": 3,
+        "defenseRange": 2,
+        "healthPool": 16,
+        "maxHealth": 16,
+        "catchPhrase": "Pokemilton, go!"
       }
     ],
-    "healingItems": 5,
+    "healingItems": 4,
     "reviveItems": 3,
     "POKEBALLS": 9
   },
-  "day": 10,
+  "day": 3,
   "logs": [
-    "Day 10: Bryan caught asPie in a battle.",
-    "Day 10: Martine gained 9 experience points."
+    "Day 1: bryan caught aldinneBas in a battle.",
+    "Day 1: Andllaume gained 10 experience points.",
+    "Day 1 : you heal the pokemilton aldinneBas",
+    "Day 2 : the pokemilton aldinneBas has renamed to loi$"
   ]
 }
