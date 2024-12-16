@@ -38,12 +38,12 @@ class PokemiltonMaster {
        }
        else if (this.healingItems >= 1 && pokemilton.healthPool < pokemilton.maxHealth && pokemilton.healthPool > 0) {
         pokemilton.healthPool = pokemilton.maxHealth
-        console.log('🐾 Pokemon has been healed!\n')
+        console.log(`🐾 ${pokemilton.name} has been healed to full health!\n`);
         this.healingItems--
         console.log(`${numberCharacters[this.healingItems - 1]}  Healing object remained\n`)
         return true
        }else if (pokemilton.healthPool === pokemilton.maxHealth){
-        console.log('\nPokemon is already full life!')
+        console.log(`\n🐾 ${pokemilton.name} is already at full health!`);
         return false
        }else if (pokemilton.healthPool === 0){
         console.log('\nYou need to revive the pokemon')
@@ -60,12 +60,12 @@ class PokemiltonMaster {
 
        else if (this.reviveItems >= 1 && pokemilton.healthPool === 0) {
         pokemilton.healthPool = Math.floor(pokemilton.maxHealth/2)
-        console.log('🐾 Pokemon has been revived!\n')
+        console.log(`🐾 ${pokemilton.name} has been revived!\n`);
         this.reviveItems--
         console.log(`${numberCharacters[this.reviveItems - 1]}  Revive object remained\n`)
         return true
        }else if (pokemilton.healthPool > 0){
-        console.log('\n 🐾 Pokemon is already revived')
+        console.log(`\n🐾 ${pokemilton.name} is already revived.`); // Affiche que le Pokemilton est déjà en vie
         return false
        }
     

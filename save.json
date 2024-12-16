@@ -1,0 +1,70 @@
+{
+  "saved_on": "16/12/2024 15:09:46",
+  "PokemiltonMaster": {
+    "name": "fef",
+    "pokemiltonCollection": [
+      {
+        "name": "anMar",
+        "level": 1,
+        "experienceMeter": 28,
+        "attackRange": 5,
+        "defenseRange": 2,
+        "healthPool": 8,
+        "maxHealth": 27,
+        "catchPhrase": "Pokemilton, go!"
+      },
+      {
+        "name": "PasAle",
+        "level": 1,
+        "experienceMeter": 0,
+        "attackRange": 9,
+        "defenseRange": 2,
+        "healthPool": 21,
+        "maxHealth": 21,
+        "catchPhrase": "Pokemilton, go!"
+      },
+      {
+        "name": "tinNaj",
+        "level": 1,
+        "experienceMeter": 0,
+        "attackRange": 6,
+        "defenseRange": 3,
+        "healthPool": 12,
+        "maxHealth": 24,
+        "catchPhrase": "I choose you!"
+      },
+      {
+        "name": "réDen",
+        "level": 1,
+        "experienceMeter": 0,
+        "attackRange": 8,
+        "defenseRange": 4,
+        "healthPool": 16,
+        "maxHealth": 25,
+        "catchPhrase": "I choose you!"
+      },
+      {
+        "name": "déricMar",
+        "level": 1,
+        "experienceMeter": 0,
+        "attackRange": 9,
+        "defenseRange": 2,
+        "healthPool": 7,
+        "maxHealth": 17,
+        "catchPhrase": "Pokemilton, go!"
+      }
+    ],
+    "healingItems": 2,
+    "reviveItems": 0,
+    "POKEBALLS": 2
+  },
+  "day": 18,
+  "logs": [
+    "Day 12 : you revive the pokemilton anMar",
+    "Day 14 : you revive the pokemilton anMar",
+    "Day 14 : you heal the pokemilton anMar",
+    "Day 14 : you heal the pokemilton PasAle",
+    "Day 14 : you revive the pokemilton tinNaj",
+    "Day 16 : you heal the pokemilton anMar"
+  ]
+}

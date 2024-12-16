@@ -174,6 +174,8 @@ function battleFlow(playerPokemilton, wildPokemilton){
   console.log(`🤺 Your Pokemilton: 🐾 ${playerPokemilton.name}\n(Level: ${playerPokemilton.level} | HP: ❤️  ${playerPokemilton.healthPool}/${playerPokemilton.maxHealth} | ATK: ${playerPokemilton.attackRange} | DEF: ${playerPokemilton.defenseRange})\n`)
   console.log(`💥 Wild Pokemilton: 🐾 ${wildPokemilton.name}\n(Level: ${wildPokemilton.level} | HP: ❤️  ${wildPokemilton.healthPool}    | ATK: ${wildPokemilton.attackRange} | DEF: ${wildPokemilton.defenseRange})`)
 
+  arena.round = 1 // incrémentation de chaque round
+
   //On créé une fonction dans la fonction de gestion du combat qui va servir à être rappelée uniquement si le combat n'est pas fini
   //Car si on ne fait pas de fonction dans la fonction BattleFlow, on devra appeller la fonction battleFlow entière lors du prochain round
   //Ce qui recréera une instance de l'Arena et rappellera la méthode startbattle qui initialisera un nouveau combat
@@ -184,8 +186,7 @@ function battleFlow(playerPokemilton, wildPokemilton){
         return
     }
 
-    //On incrémente le round
-    arena.round++
+    
     //On affiche à quel round nous sommes
     console.log(`\n✨ ROUND ${arena.round} ✨`);
     //On demande à l'utilisateur s'il veut attaquer, attraper ou fuir
@@ -195,6 +196,7 @@ function battleFlow(playerPokemilton, wildPokemilton){
       choice = parseInt(choice);
       switch (choice) {
           case 1:
+            arena.round++; // Incrémentation du round pour un choix valide
             console.clear()
             console.log(`${equal}\n                    ⚔️  ATTACK PHASE ⚔️\n${equal}\n`)
             console.log(`🎯 Attacker: ${playerPokemilton.name} (ATK: ${playerPokemilton.attackRange})`)
@@ -216,6 +218,7 @@ function battleFlow(playerPokemilton, wildPokemilton){
             
             break;
           case 2:
+            arena.round++; // Incrémentation du round pour un choix valide
               //Si on attrape le pokemon, on appelle la méthode pour essaye de l'attraper
               arena.tryToCatch(player);
               if (arena.battleOver){
@@ -223,6 +226,7 @@ function battleFlow(playerPokemilton, wildPokemilton){
               }
               break;
           case 3:
+            arena.round++; // Incrémentation du round pour un choix valide
               //S'il fuit on lui dit qu'il a fuit et on appelle la méthode qui arrête le combat
               arena.endBattle('run')
               saveGameState()
@@ -239,7 +243,7 @@ function battleFlow(playerPokemilton, wildPokemilton){
     }
   })
 }
-
+ 
 //On appelle la fonction qui est dans cette fonction pour initier le combat après battlestart
 handleRound()
   
