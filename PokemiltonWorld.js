@@ -10,16 +10,16 @@ class PokemiltonWorld {
 
   oneDayPasses(){
     this.day += 1
-    console.log(`\n---- Day ${this.day} -----\n`)
   }
   
   randomizeEvent() {
-    const randomEvent = 1
-    if (randomEvent === 0){
+    const randomEvent = Math.random()
+    if (randomEvent < 0.5){
       console.log ("Nothing happens, the day passes")
       this.oneDayPasses()
+      
     }else{
-      console.log("A wild pokemon appears")
+      console.log("A wild Pokemilton appears!")
       const wildPokemilton = new Pokemilton()
       return wildPokemilton
     }

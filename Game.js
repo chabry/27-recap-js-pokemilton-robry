@@ -32,24 +32,32 @@ let numberCharacters = ['1️⃣','2️⃣','3️⃣','4️⃣','5️⃣']
   console.log("🔄 Game saved!\n")
 
 }
-//Fonction pour lire le fichier json
+
 function loadJSON() {
-    const filePath = "save.json";
+  const filePath = "save.json"
 
-    // Vérifiez si le fichier existe
-    if (!fs.existsSync(filePath)) {
-        console.log("No save file found. Creating a new one...");
-        fs.writeFileSync(filePath, JSON.stringify({saved_on : ''}, null, 2)); // Crée un fichier vide au besoin
-        return {}; // Retourne un objet vide comme état initial
-    }
+  // Vérifiez si le fichier existe
+  if (!fs.existsSync(filePath)) {
+      console.log("No save file found. Creating a new one...")
+      fs.writeFileSync(filePath, JSON.stringify({ saved_on: '' }, null, 2)) // Crée un fichier vide au besoin
+      return null; // Retourne null pour indiquer qu'il n'y a pas de sauvegarde
+  }
 
-    try {
-        const data = fs.readFileSync(filePath, "utf8");
-        return JSON.parse(data);
-    } catch (err) {
-        console.log("The save file is invalid:", err.message);
-        return {};
-    }
+  try {
+      const data = fs.readFileSync(filePath, "utf8")
+      const jsonData = JSON.parse(data)
+
+      // Vérifie si le contenu est réellement une sauvegarde valide
+      if (!jsonData.saved_on || !jsonData.PokemiltonMaster) {
+          console.log("Invalid save file found. Starting a new game...")
+          return null // Retourne null pour démarrer une nouvelle partie
+      }
+
+      return jsonData // Retourne la sauvegarde valide
+  } catch (err) {
+      console.log("Error reading save file:", err.message)
+      return null // Retourne null pour démarrer une nouvelle partie
+  }
 }
 
 function askForName() {
@@ -88,9 +96,9 @@ function proposeFirstPokemilton(){
         const selectedPokemilton = pokemilton[chosenIndex]
         //On l'ajoute dans l'instance PokemiltonMaster précédemment créé dans askforname grâce à la fonction addPokemilton créé
         player.addPokemilton(selectedPokemilton)
-
+        console.clear()
         //Console.log
-        console.log(`\n${equal}\n                 Congratulations, ${playerName}!\n                You chose 🐾 PieAnd as your partner!\n${equal}\n`)
+        console.log(`${equal}\n                 Congratulations, ${player.name}!\n                You chose 🐾 PieAnd as your partner!\n${equal}\n`)
 
         //On sauvegarde les données dans le save.json
         saveGameState()
@@ -119,7 +127,7 @@ function proposeFirstPokemilton(){
 
 function choosePokemiltonTo(action, message){
   player.showCollection()
-      rl.question(`\n Choose a pokemon to ${message} (enter the number):`, (index) => {
+      rl.question(`\n💡 Choose a pokemon to ${message}: `, (index) => {
         index = parseInt(index - 1)
           if(index >= 0 && index < player.pokemiltonCollection.length){
               const pokemilton = player.pokemiltonCollection[index];
@@ -158,23 +166,20 @@ function battleFlow(playerPokemilton, wildPokemilton){
   //On créé une instance d'Arena
   const arena = new PokemiltonArena(playerPokemilton, wildPokemilton);
 
+  //Mise en page
+  console.clear()
+  console.log(`${equal}\n                  ⚔️  BATTLE START ⚔️\n${equal}\n`)
+
   //On affiche le niveau, nom et vie du pokemon sauvage
-  console.log(`A wild level ${wildPokemilton.level}, ${wildPokemilton.name} appears!`);
-  console.log(`It has ${wildPokemilton.healthPool} health.`);
-
-  //On créé le combat
-  arena.startBattle();
-
+  console.log(`🤺 Your Pokemilton: 🐾 ${playerPokemilton.name}\n(Level: ${playerPokemilton.level} | HP: ❤️  ${playerPokemilton.healthPool}/${playerPokemilton.maxHealth} | ATK: ${playerPokemilton.attackRange} | DEF: ${playerPokemilton.defenseRange})\n`)
+  console.log(`💥 Wild Pokemilton: 🐾 ${wildPokemilton.name}\n(Level: ${wildPokemilton.level} | HP: ❤️  ${wildPokemilton.healthPool}    | ATK: ${wildPokemilton.attackRange} | DEF: ${wildPokemilton.defenseRange})`)
 
   //On créé une fonction dans la fonction de gestion du combat qui va servir à être rappelée uniquement si le combat n'est pas fini
   //Car si on ne fait pas de fonction dans la fonction BattleFlow, on devra appeller la fonction battleFlow entière lors du prochain round
   //Ce qui recréera une instance de l'Arena et rappellera la méthode startbattle qui initialisera un nouveau combat
   function handleRound() {
     if (arena.battleOver) {
-        console.log("The battle has ended!")
         saveGameState()
-        console.log("Game state saved. Returning to menu...")
-        console.log("Menu displayed.")
         showAction();// on retourne au menu ici
         return
     }
@@ -182,22 +187,29 @@ function battleFlow(playerPokemilton, wildPokemilton){
     //On incrémente le round
     arena.round++
     //On affiche à quel round nous sommes
-    console.log(`\n--- Round ${arena.round} ---`);
+    console.log(`\n✨ ROUND ${arena.round} ✨`);
     //On demande à l'utilisateur s'il veut attaquer, attraper ou fuir
-    console.log("Choose an action:\n1. Attack\n2. Try to catch\n3. Run away");
+    console.log(`${numberCharacters[0]}  Attack\n${numberCharacters[1]}  Try to catch\n${numberCharacters[2]}  Run away\n`);
 
-    rl.question("Enter your choice: ", (choice) => {
+    rl.question("💡 Your choice: ", (choice) => {
       choice = parseInt(choice);
       switch (choice) {
           case 1:
+            console.clear()
+            console.log(`${equal}\n                    ⚔️  ATTACK PHASE ⚔️\n${equal}\n`)
+            console.log(`🎯 Attacker: ${playerPokemilton.name} (ATK: ${playerPokemilton.attackRange})`)
+            console.log(`🛡️  Defender: ${wildPokemilton.name} (❤️  HP: ${wildPokemilton.healthPool} | DEF: ${wildPokemilton.defenseRange})`)
             arena.attack(playerPokemilton, wildPokemilton);
+            console.log(`\n${equal}`)
             if (arena.battleOver) {
               // Le combat est fini, on rappelle handleRound() pour qu’il constate battleOver et affiche le menu
               handleRound();
               break; 
             }
             // Si le combat n’est pas fini, on continue comme avant
+            console.log(`🔄  ${wildPokemilton.name} counterattacks!\n`)
             arena.wildPokemiltonAction(playerPokemilton);
+            console.log(`${equal}\n`)
             if (arena.battleOver){
               handleRound();
             }
@@ -212,9 +224,9 @@ function battleFlow(playerPokemilton, wildPokemilton){
               break;
           case 3:
               //S'il fuit on lui dit qu'il a fuit et on appelle la méthode qui arrête le combat
-              console.log("You ran away!");
-              arena.endBattle()
-              console.log("Game state saved, returning to menu");
+              arena.endBattle('run')
+              saveGameState()
+              console.log("\nGame state saved, returning to menu");
               showAction();
               break;
           default:
@@ -234,7 +246,8 @@ handleRound()
 }
 
 function showAction(){
-  console.log(`${equal}\n                🗓️ Day ${world.day} in Pokemilton Town 🗓️\n${equal}\n`)
+  console.log(`${equal}\n                🌅 Day ${world.day} in Pokemilton Town 🌅\n${equal}`)
+  console.log(`Trainer: ${player.name} | Pokeballs: 🎾 ${player.POKEBALLS} | Healing Items: 💊 ${player.healingItems} | Revive items: 💊 ${player.reviveItems}`)
   rl.question(menuList() + '\n💡 Your choice: ', (action) => {
     //Faire un switch pour appeller les fonctions du menu du jeu en fonction du choix de l'utilisateur
     action = parseInt(action)
@@ -252,44 +265,73 @@ function showAction(){
         choosePokemiltonTo(player.renamePokemilton.bind(player), 'rename')
         break;
       case 5:
-        //Do nothing (daypasses ?
+        console.log(`\n${equal}`)
+      
         let randomizeEvent = world.randomizeEvent()
 
         //Si un pokémon sauvage est apparu lors de la fin de la journée
         if(randomizeEvent){
           //On demande si l'utilisateur veut l'attraper ou non, si oui on comence un combat, sinon on passe le jour et on affiche le menu
-          console.log('1. Fight\n2. Run')
+          console.log(`${numberCharacters[0]}  Fight\n${numberCharacters[1]}  Run\n`)
 
-          rl.question('Choose an option (1-2): ', (choice) => {
+          rl.question('💡 Your choice: ', (choice) => {
             choice = parseInt(choice)
 
             if(choice === 1){
-              //Fight
-              console.log("Let's fight")
-              console.log(`A wild level ${randomizeEvent.level}, ${randomizeEvent.name} Appears! It has ${randomizeEvent.healthPool} Health`)
-              player.showCollection()
-              //On demande avec quel pokémon il veut combattre
-              rl.question('Choose one pokemilton to fight :', (pokemiltonChoice) => {
-                pokemiltonChoice = parseInt(pokemiltonChoice - 1)
-                if(pokemiltonChoice >= 0 && pokemiltonChoice < player.pokemiltonCollection.length){
+
+              console.clear()
+              console.log(`${equal}\n               🐾 Choose Your Pokemilton! 🐾\n${equal}\n`)
+
+              //Fonction chooseFightPokemon pour choisir le pokemon, si il est mort ou invalide on relance cette fonction
+              function chooseFightPokemon() {
+
+                // Vérifie si tous les Pokemiltons sont KO
+                if (player.allPokemiltonsKO()) {
+                  console.log(`❌ All your Pokemiltons are KO! Use revive items or heal them before entering a battle.`);
+                  world.oneDayPasses()
+                  saveGameState()
+                  showAction(); // Retour au menu principal
+                  return;
+                }
+
+                //On demande avec quel pokémon il veut combattre
+                player.showCollection()
+                rl.question('\n💡 Choose a Pokemilton to fight: ', (pokemiltonChoice) => {
+                  pokemiltonChoice = parseInt(pokemiltonChoice - 1)
+
+                  if(pokemiltonChoice >= 0 && pokemiltonChoice < player.pokemiltonCollection.length){
                     const playerPokemilton = player.pokemiltonCollection[pokemiltonChoice];
+
+                    if(playerPokemilton.healthPool === 0){
+                      console.log(`❌ ${playerPokemilton.name} is KO! Choose another Pokemilton.`)
+                      return chooseFightPokemon()
+                    }
+
                     //On appelle la fonction de game.js qui gère le flux du combat
                     battleFlow(playerPokemilton, randomizeEvent)
-                }else{
-                  console.log('Invalid choice. Returning to main menu')
-                  showAction()
-                }
-              })
+                    
+                  }else{
+                    console.clear()
+                    chooseFightPokemon()
+                  }
+                })
+              }
+
+              chooseFightPokemon()
             }
-            
             else{
               //Run (escape)
-              console.log('You chose to run away')
               world.oneDayPasses()
               saveGameState()
+              console.clear()
               showAction()
             }
           })
+        }else{
+          saveGameState()
+          console.clear()
+          console.log(`Nothing happened. The day passes!\n`)
+          showAction()
         }
 
         /*console.log(`Day ${world.day} in PokemilTown`)
@@ -304,56 +346,63 @@ function showAction(){
   })
 }
 
-function startGame(){
-  //Vérifier si une sauvegarde existe
-  //Si oui on propose de la charger ou de recommencer une nouvelle
+function startGame() {
   console.clear()
   jsonData = loadJSON()
-  if(jsonData.saved_on != ''){
+
+  if (jsonData) {
     console.log(`${equal}\n                🌟 WELCOME TO POKEMILTON 🌟\n${equal}\n`)
     console.log('📂 Previous save detected! What would you like to do?')
     console.log('1️⃣  Load previous game')
     console.log('2️⃣  Start a new adventure')
 
-    rl.question('\n💡 Your choice: ', (newBeginning) => {
-      const newBeginningIndex = parseInt(newBeginning)
+    const askChoice = () => {
+      rl.question('\n💡 Your choice: ', (newBeginning) => {
+        const newBeginningIndex = parseInt(newBeginning)
 
-      if(newBeginningIndex === 1){
-        player = new PokemiltonMaster(jsonData.PokemiltonMaster.name)
-        player.pokemiltonCollection = jsonData.PokemiltonMaster.pokemiltonCollection
-        player.healingItems = jsonData.PokemiltonMaster.healingItems
-        player.reviveItems = jsonData.PokemiltonMaster.reviveItems
-        player.POKEBALLS = jsonData.PokemiltonMaster.POKEBALLS
-        
-        player.pokemiltonCollection = jsonData.PokemiltonMaster.pokemiltonCollection.map(data => {
-          const p = new Pokemilton();
-          p.name = data.name;
-          p.level = data.level;
-          p.experienceMeter = data.experienceMeter;
-          p.attackRange = data.attackRange;
-          p.defenseRange = data.defenseRange;
-          p.healthPool = data.healthPool;
-          p.maxHealth = data.maxHealth;
-          p.catchPhrase = data.catchPhrase;
-          return p;
-        });
+        if (newBeginningIndex === 1) {
+          console.clear()
+          // Charger la sauvegarde
+          player = new PokemiltonMaster(jsonData.PokemiltonMaster.name)
+          player.pokemiltonCollection = jsonData.PokemiltonMaster.pokemiltonCollection
+          player.healingItems = jsonData.PokemiltonMaster.healingItems
+          player.reviveItems = jsonData.PokemiltonMaster.reviveItems
+          player.POKEBALLS = jsonData.PokemiltonMaster.POKEBALLS
 
+          player.pokemiltonCollection = jsonData.PokemiltonMaster.pokemiltonCollection.map((data) => {
+            const p = new Pokemilton()
+            p.name = data.name
+            p.level = data.level
+            p.experienceMeter = data.experienceMeter
+            p.attackRange = data.attackRange
+            p.defenseRange = data.defenseRange
+            p.healthPool = data.healthPool
+            p.maxHealth = data.maxHealth
+            p.catchPhrase = data.catchPhrase
+            return p;
+          });
 
-        world = new PokemiltonWorld()
-        world.day = jsonData.day
-        world.logs = jsonData.logs
+          world = new PokemiltonWorld()
+          world.day = jsonData.day
+          world.logs = jsonData.logs
 
-        showAction()
+          showAction();
+        } else if (newBeginningIndex === 2) {
+          // Nouvelle aventure
+          askForName()
+        } else {
+          // Entrée invalide
+          console.log("❌ Invalid choice. Please enter 1 or 2.")
+          askChoice() // Repose la question
+        }
+      });
+    };
 
-      }else if(newBeginningIndex === 2){
-        askForName()
-      }
-    })
-  }else{
+    askChoice() // Appelle la fonction pour poser la question
+  } else {
     askForName()
   }
 }
-
 
 
 startGame()

@@ -1,5 +1,7 @@
 const Pokemilton = require("./Pokemilton")
 
+let equal = '============================================================'
+
 class PokemiltonArena {
   constructor(playerPokemilton, wildPokemilton) {
     // Initialise une bataille entre deux Pokemiltons.
@@ -14,22 +16,13 @@ class PokemiltonArena {
     
   }
 
-  startBattle() {
-    // Démarre la bataille entre les deux Pokemiltons.
-    // Cette méthode orchestre les rounds jusqu'à ce qu'un gagnant soit déterminé.
-    console.log(`The battle starts between ${this.pokemilton_1.name} vs ${this.pokemilton_2.name}`)
-  }
-
   attack(attacker, defender) {
     // Permet à un Pokemilton d'attaquer un adversaire.
     // Calcule les dégâts infligés en fonction des statistiques (attackRange, defenseRange).
-    const baseDamage = Math.floor(Math.random() * (attacker.attackRange + 1))
-    console.log('Base damage'+ baseDamage)
-    const netDamage = Math.max(baseDamage - defender.defenseRange, 1) // Minimum 1 dégât
-    console.log('Net damage'+ baseDamage)
-    defender.healthPool = Math.max(0, defender.healthPool - netDamage); // Ne descend pas en dessous de 0
-    console.log(`\n${attacker.name} attacks ${defender.name} for ${netDamage} damage!`)
-    console.log(`Current life of the wild pokemilton : ${defender.healthPool}\n`)
+    const damage = this.calculateDamage(this.pokemilton_1.attackRange, this.pokemilton_2.defenseRange, this.pokemilton_1.level)
+    defender.healthPool = Math.max(0, defender.healthPool - damage); // Ne descend pas en dessous de 0
+    console.log(`\n🎲 Damage dealt: ${damage}`)
+    console.log(`❤️  ${this.pokemilton_2.name}'s Remaining HP: **${this.pokemilton_2.healthPool}**`)
     this.checkBattleStatus()
   }
 
@@ -51,13 +44,13 @@ class PokemiltonArena {
         this.endBattle()
   
       }else{
-        console.log(`You have ${player.POKEBALLS} pokeballs left`)
-        console.log(`Failed to catch ${this.pokemilton_2.name}!`)
+        console.log(`\nFailed to catch ${this.pokemilton_2.name}!`)
+        console.log(`You have ${player.POKEBALLS} pokeballs left\n`)
       }
     }
     if(player.POKEBALLS === 0){
       console.clear()
-      console.log('Impossible to try to catch. No pokeballs lefts')
+      console.log('\nImpossible to try to catch. No pokeballs lefts')
     }
     this.wildPokemiltonAction(this.pokemilton_1)
   }
@@ -70,14 +63,11 @@ class PokemiltonArena {
   }
 
   wildPokemiltonAction(defender) {
-    // Détermine l'action du Pokemilton sauvage lors de son tour.
-    // Par exemple, attaquer, esquiver ou utiliser une capacité spéciale.
-
-    const baseDamage = Math.floor(Math.random() * (this.pokemilton_1.attackRange + 1))
-    const netDamage = Math.max(baseDamage - this.pokemilton_1.defenseRange, 2); // Minimum 1 dégât
-    defender.healthPool = Math.max(0, defender.healthPool - netDamage); // Ne descend pas en dessous de 0
-    console.log(`\n${this.pokemilton_2.name} attacks ${defender.name} for ${netDamage} damage!`)
-    console.log(`Current life of your pokemilton : ${defender.healthPool}\n`)
+    //Contre attaque du pokémon
+    const damage = this.calculateDamage(this.pokemilton_1.attackRange, this.pokemilton_2.defenseRange, this.pokemilton_1.level)
+    defender.healthPool = Math.max(0, defender.healthPool - damage); // Ne descend pas en dessous de 0
+    console.log(`🎯 Damage dealt: **${damage}**`)
+    console.log(`❤️  ${this.pokemilton_1.name}'s HP: **${this.pokemilton_1.healthPool}/${this.pokemilton_1.maxHealth}**`)
     this.checkBattleStatus()
   }
 
@@ -87,30 +77,34 @@ class PokemiltonArena {
       if(this.pokemilton_1.healthPool <= 0){
         this.looser = this.pokemilton_1.name
         this.winner = this.pokemilton_2.name
-        console.log(`${this.pokemilton_1.name} is dead. You lost loser.`);
-        // Le joueur a perdu, on passe au jour suivant ?
         this.endBattle()
       }else if(this.pokemilton_2.healthPool <= 0){
         this.looser = this.pokemilton_2.name
         this.winner = this.pokemilton_1.name
-        console.log(`${this.pokemilton_2.name} is dead. You won winner.`);
-        // Le joueur a gagné, on donne de l'XP
-        // On passe au jour suivant
         this.endBattle()
       }
     }
     
 
-  endBattle() {
+  endBattle(reason) {
     // Termine la bataille et affiche le résultat.
     // Peut inclure des récompenses ou des pénalités selon l'issue du combat.
     this.battleOver = true;
-    if(this.looser === this.pokemilton_2.name){
-      this.pokemilton_1.gainExperience(this.pokemilton_2.level);
+
+    console.clear()
+
+    if(reason === 'run'){
+      console.log('--- Battle Over ---')
+      console.log(`❌ You ran away! ${this.pokemilton_2.name} wins!`)
+    }else{
+      console.log(`${equal}\n                 🎉 Battle Over 🎉\n${equal}`)
+      console.log(`🏆 Winner: ${this.winner}`)
+      console.log(`💔 Loser: ${this.looser}`)
+      if(this.looser === this.pokemilton_2.name){        
+        this.pokemilton_1.gainExperience(this.pokemilton_2.level);
+      }
     }
-    console.log('--- Battle Over ---')
-    console.log(`Winner: ${this.winner}`)
-    console.log(`Looser: ${this.looser}`)
+
   }
 }
 

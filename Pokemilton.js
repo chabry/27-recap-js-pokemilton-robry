@@ -50,7 +50,7 @@ class Pokemilton {
   gainExperience(opponentLevel) {
     const experienceGain = this.getRandomNumber(5, 10) * opponentLevel;
     this.experienceMeter += experienceGain;
-    console.log(`${this.name} gained ${experienceGain} experience points!`);
+    console.log(`🎉 ${this.name} gained ${experienceGain} XP!`);
     if (this.experienceMeter >= this.level * 100) {
       this.evolve();
     }
