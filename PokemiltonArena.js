@@ -3,7 +3,7 @@ const Pokemilton = require("./Pokemilton")
 let equal = '============================================================'
 
 class PokemiltonArena {
-  constructor(playerPokemilton, wildPokemilton, world) {
+  constructor(playerPokemilton, wildPokemilton, world, player) {
     // Initialise une bataille entre deux Pokemiltons.
     // pokemilton_1 : Pokemilton contrôlé par le joueur.
     // pokemilton_2 : Pokemilton sauvage ou adversaire.

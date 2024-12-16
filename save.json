@@ -1,38 +1,33 @@
 {
-  "saved_on": "16/12/2024 16:32:40",
+  "saved_on": "16/12/2024 16:47:07",
   "PokemiltonMaster": {
-    "name": "bryan",
+    "name": "trt",
     "pokemiltonCollection": [
       {
-        "name": "Andllaume",
+        "name": "boubou",
         "level": 1,
-        "experienceMeter": 10,
-        "attackRange": 4,
-        "defenseRange": 1,
-        "healthPool": 11,
-        "maxHealth": 15,
-        "catchPhrase": "Let the battle begin!"
-      },
-      {
-        "name": "loi$",
-        "level": 1,
-        "experienceMeter": 0,
-        "attackRange": 3,
-        "defenseRange": 2,
-        "healthPool": 16,
-        "maxHealth": 16,
-        "catchPhrase": "Pokemilton, go!"
+        "experienceMeter": 22,
+        "attackRange": 5,
+        "defenseRange": 3,
+        "healthPool": 6,
+        "maxHealth": 27,
+        "catchPhrase": "I choose you!"
       }
     ],
     "healingItems": 4,
     "reviveItems": 3,
     "POKEBALLS": 9
   },
-  "day": 3,
+  "day": 2,
   "logs": [
-    "Day 1: bryan caught aldinneBas in a battle.",
-    "Day 1: Andllaume gained 10 experience points.",
-    "Day 1 : you heal the pokemilton aldinneBas",
-    "Day 2 : the pokemilton aldinneBas has renamed to loi$"
+    "Day 1: trt caught tinJam in a battle.",
+    "Day 1: Denas gained 7 experience points.",
+    "Day 1 : the pokemilton Denas has renamed to boubou",
+    "Day 1 : you heal the pokemilton boubou",
+    "Day 2: trt's boubou defeated MehHug.",
+    "Day 2: boubou gained 9 experience points.",
+    "Day 2 : you release the pokemilton tinJam",
+    "Day 2: trt's boubou defeated anQue.",
+    "Day 2: boubou gained 6 experience points."
   ]
 }
