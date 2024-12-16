@@ -98,7 +98,7 @@ function proposeFirstPokemilton(){
         player.addPokemilton(selectedPokemilton)
         console.clear()
         //Console.log
-        console.log(`${equal}\n                 Congratulations, ${player.name}!\n                You chose 🐾 PieAnd as your partner!\n${equal}\n`)
+        console.log(`${equal}\n                 Congratulations, ${player.name}!\n                You chose 🐾 ${selectedPokemilton.name} as your partner!\n${equal}\n`)
 
         //On sauvegarde les données dans le save.json
         saveGameState()
@@ -164,7 +164,7 @@ function menuList(){
 //On fait une fonction directement dans game.js qui gère le combat et qui appelle au bon moment les méthode d'Arena
 function battleFlow(playerPokemilton, wildPokemilton){
   //On créé une instance d'Arena
-  const arena = new PokemiltonArena(playerPokemilton, wildPokemilton);
+  const arena = new PokemiltonArena(playerPokemilton, wildPokemilton, world);
 
   //Mise en page
   console.clear()

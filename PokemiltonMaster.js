@@ -1,4 +1,4 @@
-let numberCharacters = ['1️⃣','2️⃣','3️⃣','4️⃣','5️⃣']
+let numberCharacters = ['0️⃣','1️⃣','2️⃣','3️⃣','4️⃣','5️⃣']
 
 class PokemiltonMaster {
   constructor(name) {
@@ -36,11 +36,15 @@ class PokemiltonMaster {
     if (!pokemilton) {
       console.log("Invalid Pokemilton or name.")
        }
+       else if (this.healingItems === 0){
+        console.log(`\n${numberCharacters[this.healingItems]}  heal 💊 remained`)
+        console.log(`Impossible to heal.\n`)
+       }
        else if (this.healingItems >= 1 && pokemilton.healthPool < pokemilton.maxHealth && pokemilton.healthPool > 0) {
         pokemilton.healthPool = pokemilton.maxHealth
         console.log(`🐾 ${pokemilton.name} has been healed to full health!\n`);
         this.healingItems--
-        console.log(`${numberCharacters[this.healingItems - 1]}  Healing object remained\n`)
+        console.log(`${numberCharacters[this.healingItems]}  Healing 💊 remained\n`)
         return true
        }else if (pokemilton.healthPool === pokemilton.maxHealth){
         console.log(`\n🐾 ${pokemilton.name} is already at full health!`);
@@ -57,12 +61,15 @@ class PokemiltonMaster {
       console.log("Invalid Pokemilton or name.")
 
        }
-
+       else if (this.reviveItems === 0){
+        console.log(`\n${numberCharacters[this.reviveItems]}  Revive 💊 remained`)
+        console.log(`Impossible to revive.\n`)
+       }
        else if (this.reviveItems >= 1 && pokemilton.healthPool === 0) {
         pokemilton.healthPool = Math.floor(pokemilton.maxHealth/2)
         console.log(`🐾 ${pokemilton.name} has been revived!\n`);
         this.reviveItems--
-        console.log(`${numberCharacters[this.reviveItems - 1]}  Revive object remained\n`)
+        console.log(`${numberCharacters[this.reviveItems]}  Revive 💊 remained\n`)
         return true
        }else if (pokemilton.healthPool > 0){
         console.log(`\n🐾 ${pokemilton.name} is already revived.`); // Affiche que le Pokemilton est déjà en vie
@@ -87,7 +94,7 @@ class PokemiltonMaster {
 
   showCollection() {
     //Afficher tous les pokemon de la collection
-    let index = 0
+    let index = 1
     console.log('🎒 Your collection:')
 
     for (const pokemon of this.pokemiltonCollection) {

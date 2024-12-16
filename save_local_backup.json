@@ -1,0 +1,39 @@
+{
+  "saved_on": "16/12/2024 15:25:10",
+  "PokemiltonMaster": {
+    "name": "lola",
+    "pokemiltonCollection": [
+      {
+        "name": "PasParTu",
+        "level": 1,
+        "experienceMeter": 13,
+        "attackRange": 9,
+        "defenseRange": 3,
+        "healthPool": 11,
+        "maxHealth": 11,
+        "catchPhrase": "Pokemilton, go!"
+      },
+      {
+        "name": "GuiPie",
+        "level": 1,
+        "experienceMeter": 0,
+        "attackRange": 4,
+        "defenseRange": 3,
+        "healthPool": 18,
+        "maxHealth": 23,
+        "catchPhrase": "Pokemilton, go!"
+      }
+    ],
+    "healingItems": 3,
+    "reviveItems": 1,
+    "POKEBALLS": 9
+  },
+  "day": 13,
+  "logs": [
+    "Day 1 : the pokemilton DenPas has renamed to PasParTu",
+    "Day 12 : you revive the pokemilton PasParTu",
+    "Day 12 : you heal the pokemilton PasParTu",
+    "Day 13 : you revive the pokemilton PasParTu",
+    "Day 13 : you heal the pokemilton PasParTu"
+  ]
+}
